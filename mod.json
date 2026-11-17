@@ -1,0 +1,53 @@
+{
+ "id": "transpose-dt",
+ "version": "0.6.3",
+ "title": "TRANSPOSE",
+ "category": "Sequencer",
+ "license": "GPL-2.0-or-later",
+ "author": "Robbie",
+ "description": "Transposes each track by an offset in semitones (-48..+48). Hold TRK + NO: an overlay opens on the selected track. UP / DOWN move the keyboard's range one octave at a time (up to +-4) without changing the transpose. TRIG n sets the transpose to range + (n - 9): TRIG 9 is the range's base, TRIG 1 is 8 semitones below it, TRIG 16 is 7 above. Knob H moves the transpose one semitone per detent, up or down. YES commits (TRK + NO + YES): the transpose is written into the track's note-locks and reset to 0. Only the step's main note moves; the pattern is changed only by COMMIT. Stock tracks only. Needs core 4.1 and seq-events 0.2.",
+ "device": "digitakt-mk1",
+ "os": "1.53",
+ "sources": [
+  "transpose.c"
+ ],
+ "cflags": [
+  "-DDSQ_PATTERN_PP=0x4199dc38"
+ ],
+ "ports": {
+  "1.54": {
+   "cflags": [
+    "-DDSQ_PATTERN_PP=0x4199ec38"
+   ]
+  }
+ },
+ "subscribe": [
+  {
+   "event": "ev_key",
+   "fn": "transpose_key",
+   "order": 30
+  },
+  {
+   "event": "ev_enc",
+   "fn": "transpose_enc",
+   "order": 30
+  },
+  {
+   "event": "ev_draw",
+   "fn": "transpose_draw",
+   "order": 95
+  },
+  {
+   "event": "ev_fire_notes",
+   "fn": "transpose_notes",
+   "order": 50
+  }
+ ],
+ "resources": {
+  "core": "4.1"
+ },
+ "requires": [
+  "core",
+  "seq-events"
+ ]
+}
